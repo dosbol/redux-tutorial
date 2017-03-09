@@ -10,12 +10,12 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'react-hot!babel'
+      loader: 'react-hot-loader!babel-loader'
     }]
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
+ // resolve: {
+ //   extensions: ['', '.js', '.jsx']
+ // },
   output: {
     path: __dirname + '/dist',
     publicPath: '/',
