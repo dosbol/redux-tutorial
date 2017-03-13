@@ -37,4 +37,38 @@ describe('Voting', () => {
 		expect(votedWith).to.equal('Trainspotting');
 	  });
 	
+	it('otkluchaet knopku, kak tolko polzovatel progolosuet', () => {
+		
+		const component = renderIntoDocument(
+			<Voting pair={["Trainspotting", "28 Days Later"]}
+					hasVoted="Trainspotting" />
+		);
+		const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
+		
+		expect(buttons.length).to.equal(2);
+		expect(buttons[0].hasAttribute('disabled')).to.equal(true);
+		expect(buttons[1].hasAttribute('disabled')).to.equal(true);
+	});
+	
+	it('dobavliaet label k zapisi, za kotoruiu progolosovali', () => {
+		const component = renderIntoDocument(
+			<Voting pair={["Trainspotting", "28 Days Later"]}
+					hasVoted="Trainspotting" />
+		);
+		const buttons = scryRenderedDOMComponentsWithTag(component,'button');
+		expect(buttons[0].textContent).to.contain('Voted');
+	});
+	
+	it('otrisovyvaet tolko pobeditelya', () => {
+	  const component = renderIntoDocument(
+		<Voting winner="Trainspotting" />
+	  );
+	  const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
+	  expect(buttons.length).to.equal(0);
+
+	  const winner = ReactDOM.findDOMNode(component.refs.winner);
+	  expect(winner).to.be.ok;
+	  expect(winner.textContent).to.contain('Trainspotting');
+	});
+	
 });
